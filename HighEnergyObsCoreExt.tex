@@ -430,7 +430,7 @@ Table~\ref{tab:obscore_hea} summarizes the proposal for the \gls{HEA} extension 
 \hline
 {\em tracking\_mode\/} & \ucd{meta.code;obs.param} & unitless & string & {Tracking mode of an observation ({\em e.g.\/}, sidereal rate, moving target [solar system] tracking, drift scans)}  & NO \\
 \hline
-{\em scan\_mode\/} & \ucd{meta.code;obs.param} & unitless & string &{Scan mode of an observation for pointing instruments ({\em e.g.\/}, on-sources, on-off, raster-map, on-the-fly-cross-scan, on-the-fly-cross-map, slew)} & NO \\
+{\em scan\_mode\/} & \ucd{meta.code;obs.param} & unitless & string &{Scan mode of an observation for pointing instruments ({\em e.g.\/}, on-source, on-off, raster-map, on-the-fly-cross-scan, on-the-fly-cross-map, slew)} & NO \\
 \hline
 {\em array\_pointing\_mode\/} & \ucd{meta.code;obs.param} & unitless & string &{Pointing mode of an observation for array instruments ({\em e.g.\/}, parallel, convergent[-ang], divergent[-ang])} & NO \\
 \hline
@@ -552,7 +552,7 @@ For \gls{HEA}, because the mappings between observed counts, incident particles,
 \item Energy flux density (differential flux), with units $\rm J\,m^{-2}\,s^{-1}\,\hbox{eV}^{-1}$.
 \end{itemize}
 
-The common \gls{HEA} flux, radiance, and flux density definitions listed above are not all covered by the UCD vocabulary.   We propose to add new UCDs in \S~\ref{sec:UCDs} below to address this, and where appropriate refine the definitions of existing UCDs based on dimensionality.  With the proposed additions and refinements, we can, for example, easily distinguish between a counts flux with UCD {\em phot.counts\/}, a photon flux with UCDs {\em phot.flux.particle;phys.particle.photon\/}, and an energy flux with UCD {\em phot.\-flux.energy\/}.  These refinement will also be particularly useful for cases where a \gls{HEA} quantity should have the same UCD as ({\em e.g.\/}\null) a radio measurement but where very different units are used. For example, $\rm Jy$ (Jansky) and $\rm erg\,cm^{-2}\,s^{-1}\,TeV$ are both spectral flux densities but the unit analysis doesn’t agree due to the frequency-energy equivalency.
+The common \gls{HEA} flux, radiance, and flux density definitions listed above are not all covered by the UCD vocabulary.   We propose to add new UCDs in \S~\ref{sec:UCDs} below to address this, and where appropriate refine the definitions of existing UCDs based on dimensionality.  With the proposed additions and refinements, we can, for example, easily distinguish between a counts flux with UCD {\em phot.count\/}, a photon flux with UCDs {\em phot.flux.particle;phys.particle.photon\/}, and an energy flux with UCD {\em phot.\-flux.energy\/}.  These refinement will also be particularly useful for cases where a \gls{HEA} quantity should have the same UCD as ({\em e.g.\/}\null) a radio measurement but where very different units are used. For example, $\rm Jy$ (Jansky) and $\rm erg\,cm^{-2}\,s^{-1}\,TeV$ are both spectral flux densities but the unit analysis doesn’t agree due to the frequency-energy equivalency.
 
 Restating the existing IVOA Data Product Type Vocabulary descriptions that use the term ``flux'' to explicitly state ``count/particle/energy flux or magnitude'' where appropriate would resolve the concern raised above with the current use of the term ``flux''.
 
@@ -577,7 +577,7 @@ We propose to add a new UCD {\em instr.detection\/} as the base of the hierarchy
 
 For many X-ray and gamma-ray instruments, the signal observed in a given detector spectral channel is the result of event counting and would typically be recorded as a Pulse Height Amplitude (PHA), or perhaps a Pulse Invariant (PI) value that is calculated from PHA by applying an appropriate gain calibration.  The PHA (or PI) can be related to the incident particle energy by applying the appropriate {\bf response-function}, and higher data calibration level products may replace or augment these values with quantities such as energy, or perhaps particle or energy flux.
 
-There is currently no UCD defined for a raw pulse height amplitude measure like PHA (or PI). PHA is such an important quantity to \gls{HEA} datasets that we propose adding a new UCD {\em instr.pulse\/} for these raw data values. {\em instr.pulse\/} can be combined with more general UCD terms to describe pulse parameters recorded by the pulse height analyzer electronics. Typically, PHA corresponds to the integrated signal detected by the electronics, which could therefore be described using the UCD {\em instr.pulse;arith.sum}. For some detectors, additional pulse parameters such as the peak pulse height or pulse width are important, and could be described by UCDs {\em instr.pulse;stat.max} and {\em instr.pulse;stat.fwmh}, respectively, and so on. We note that the background signal (both of instrumental and cosmological origin) may be significant for many \gls{HEA} detectors and so the detected events may be unrelated to any observed source on the sky. For Cherenkov neutrino detectors, this quantity might refer to the number of observed photon hits from secondary particle photon generation.
+There is currently no UCD defined for a raw pulse height amplitude measure like PHA (or PI). PHA is such an important quantity to \gls{HEA} datasets that we propose adding a new UCD {\em instr.pulse\/} for these raw data values. {\em instr.pulse\/} can be combined with more general UCD terms to describe pulse parameters recorded by the pulse height analyzer electronics. Typically, PHA corresponds to the integrated signal detected by the electronics, which could therefore be described using the UCD {\em instr.pulse;arith.sum}. For some detectors, additional pulse parameters such as the peak pulse height or pulse width are important, and could be described by UCDs {\em instr.pulse;stat.max} and {\em instr.pulse;stat.fwhm}, respectively, and so on. We note that the background signal (both of instrumental and cosmological origin) may be significant for many \gls{HEA} detectors and so the detected events may be unrelated to any observed source on the sky. For Cherenkov neutrino detectors, this quantity might refer to the number of observed photon hits from secondary particle photon generation.
 
 \paragraph{Event Grade}
 
@@ -646,7 +646,7 @@ E & {\em phot.flux.particle.density\/} & Particle flux density (dimensionality: 
 E & {\em phot.flux.particle.density.sb\/} & Particle flux density surface brightness (dimensionality: $\rm [L^{-2}\,T^{-1}\,E^{-1}\,\hbox{sr}^{-1}]$)  \cr
 E & {\em phot.flux.particle.radiance\/} & Particle flux radiance (dimensionality: $\rm [L^{-2}\,T^{-1}\,\hbox{sr}^{-1}]$)  \cr
 E & {\em phot.flux.particle.sb\/} & Particle flux surface brightness (dimensionality: $\rm [L^{-2}\,T^{-1}\,\hbox{sr}^{-1}]$)  \cr
-S & {\em phys.particle.antiprotron\/}  & Related to anti-proton \cr
+S & {\em phys.particle.antiproton\/}  & Related to anti-proton \cr
 S & {\em phys.particle.cosmicray\/} & Related to cosmic rays particles  \cr
 S & {\em phys.particle.electron\/} & Related to electron  \cr
 S & {\em phys.particle.photon\/} & Related to photon  \cr
