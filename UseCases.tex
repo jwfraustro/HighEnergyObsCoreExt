@@ -1,23 +1,23 @@
-Here are some science cases collected from various astronomical projects for this note to represent typical data discovery scenarios in high energy physics. 
-Each use case presents one strategy for building a ADQL query for an  extended TAP service, based on the original {\tt ivoa.obscore} table and on the {\tt ivoa.obscore-hea} table extension. 
+Here are some science cases collected from various astronomical projects for this note to represent typical data discovery scenarios in high energy physics.
+Each use case presents one strategy for building a ADQL query for an  extended TAP service, based on the original {\tt ivoa.obscore} table and on the {\tt ivoa.obscore-hea} table extension.
 
-We distinguished three categories of datasets in this note: 
+We distinguished three categories of datasets in this note:
 primary observation datasets (typically event-lists and event-bundles for \gls{HEA}), response function datasets, and advanced data product datasets.
-In agreement with Semantics WG we have 3 existing/draft/proposed vocabularies: 
-\begin{itemize} 
-\item \url{http://www.ivoa.net/rdf/product-type} used for data products served in {\tt ivoa.obscore} table; 
+In agreement with Semantics WG we have 3 existing/draft/proposed vocabularies:
+\begin{itemize}
+\item \url{http://www.ivoa.net/rdf/product-type} used for data products served in {\tt ivoa.obscore} table;
 \item \url{http://www.ivoa.net/rdf/response-type} to expose response data products;
 \item an Advanced data product type vocabulary currently  discussed here: \\
 {\small \url{https://github.com/ivoa-std/VEPs/pull/21/changes/c4195e1975341881d8fda22cb851ff11b5b74c1f#top}}.\\
 \vspace{-20pt}
-\item[] Note that the Radio astronomical community also requires the definition of new types of data products for their science ready datasets as ``advanced dataset''. 
-\end{itemize} 
+\item[] Note that the Radio astronomical community also requires the definition of new types of data products for their science ready datasets as ``advanced dataset''.
+\end{itemize}
 
-Three strategies have been considered in this note to organize data discovery based on an extension of  ObsCore 1.1 in TAP\null. Each of them needs to be evaluated in various situations and explored further in terms of clarity for the user and robustness. 
+Three strategies have been considered in this note to organize data discovery based on an extension of  ObsCore 1.1 in TAP\null. Each of them needs to be evaluated in various situations and explored further in terms of clarity for the user and robustness.
 
-\begin{itemize} 
-\item {\bf Proposal 1}: Serve all data products in the {\tt ivoa.obscore} table.  The attribute {\em dataproduct\_type\/} in {\tt ivoa.obscore} can contain any term from one of the three vocabularies  \textsl{product-type}, \textsl{advanced-product-type},  or \textsl{response-type}: 
-All products are distributed via the {\tt ivoa.obs\-core} table as in 
+\begin{itemize}
+\item {\bf Proposal 1}: Serve all data products in the {\tt ivoa.obscore} table.  The attribute {\em dataproduct\_type\/} in {\tt ivoa.obscore} can contain any term from one of the three vocabularies  \textsl{product-type}, \textsl{advanced-product-type},  or \textsl{response-type}:
+All products are distributed via the {\tt ivoa.obs\-core} table as in
 Chandra use cases A.1.8, A.2.1, and A.2.3, CTAO use cases A1.9 and A2.4, and SWGO use case A1.3.
 
 This approach has the advantage that it is easy for the end-user to understand.  All data products are accessed from the same table and the user does not have to know details about which data products need to be queried from what table.
@@ -28,12 +28,12 @@ The user could for example choose to use GROUP BY {\em obs\_id\/}, but still the
 
 In practice, many advanced data products of the same type may be associated with a single {\bf hea-event-list} and so archives that serve such products will generally provide adequate metadata to allow the correlations to be performed.  These metadata may not be directly accessible through the ObsCore TAP service however, which would place the onus on the end-user to perform these correlations after-the fact.
 
-\item {\bf Proposal 2}: Add new terms to the product-type vocabulary and distinguish among response types and advanced product types using {\em data\-product\_subtype\/} in {\tt ivoa.obscore}. 
-The terms {\bf pdf}, {\bf draws}, {\bf region}, and {\bf response-function} are added to product-type vocabulary. 
+\item {\bf Proposal 2}: Add new terms to the product-type vocabulary and distinguish among response types and advanced product types using {\em data\-product\_subtype\/} in {\tt ivoa.obscore}.
+The terms {\bf pdf}, {\bf draws}, {\bf region}, and {\bf response-function} are added to product-type vocabulary.
 All products are distributed with the {\tt ivoa.obscore} table.
 See use cases A.1.10 and A.1.13 for KM3NeT and Chandra use case A.1.8.
 
-This approach is included largely for compatibility with the ObsCore Recommendation Version 1.1, which has a limited set of {\em dataproduct\_type\/}s and so requires the use of {\em dataproduct\_subtype\/} to discriminate between different data product types that share the same {\em data\-product\_type\/}.  
+This approach is included largely for compatibility with the ObsCore Recommendation Version 1.1, which has a limited set of {\em dataproduct\_type\/}s and so requires the use of {\em dataproduct\_subtype\/} to discriminate between different data product types that share the same {\em data\-product\_type\/}.
 
 A disadvantage of this approach is that queries on two ObsCore attributes are required to identify certain types of data products, for example different types of {\em response-function\/}s.  The interpretation  of the {\em dataproduct\_subtype\/} attribute may be ambiguous as the content could be ({\em e.g.\/}) a type of {\bf response-function}, or a category of image ({\em e.g.\/}, an excess map or significance map) or some specific description chosen by a specific archive.
 
@@ -42,7 +42,7 @@ A standardized vocabulary for {\em dataproduct\_subtype\/} will be beneficial.  
 However, the ability for each individual archive to use {\em dataproduct\_sub\-type\/} ``to more precisely define the nature of the dataset'' (ObsCore Recommendation Version 1.1 \S~4.1) should not be discounted.  Each archive is likely to have many different types of data products that would otherwise have the same {\em dataproduct\_type\/} that will need to be discriminated to be discovered efficiently.  Some data products may be unique to a particular observatory but nevertheless highly significant for end-users of that observatory's data.
 
 \item {\bf Proposal 3}: Separate the three kinds of products defined in the three distinct vocabularies as proposed with Semantics WG\null.
-Implement one table for each kind: 
+Implement one table for each kind:
 \begin{itemize}
 \item {\tt ivoa.obscore} uses {\em dataproduct\_type\/} from the \textsl{product-type} vocabulary;
 \item {\tt ivoa.response} uses {\em dataproduct\_type\/} from the \textsl{response-type} vocabulary;
@@ -53,7 +53,7 @@ The benefits lie in tracing clearly the connections between response files and/o
 
 The disadvantage of this approach is that the end-user will need to know which vocabularies would need to be queried for which data product types and this may require a level of knowledge of IVOA implementation internals that would go beyond what is otherwise required of end-users.  This will be more important for end-users who prefer to write their own queries directly using ADQL (for example, using TOPCAT), and could be particularly troublesome if the end user needs to change the syntax of their {\em dataproduct\_type\/} query depending on which vocabulary is used.
 
-This strategy still needs to be investigated in detail.  Some hints for implementing this approach are provided in Appendix~\ref{sec:accessoptionsappendix}. 
+This strategy still needs to be investigated in detail.  Some hints for implementing this approach are provided in Appendix~\ref{sec:accessoptionsappendix}.
 \end{itemize}
 
 \pagebreak
@@ -63,7 +63,7 @@ This strategy still needs to be investigated in detail.  Some hints for implemen
 \subsubsection{Use Case --- Search for event lists surrounding Sgr A*, for example for an X-ray morphological study}
 
 {\em Identify all \gls{HEA} event lists encompassing Sgr~A* for initial selection for subsequent X-ray morphological studies.  Since the focus is on X-ray morphological studies, only the event lists and not the event bundles are desired.\/}
-%proposal regular Obscore table 
+%proposal regular Obscore table
 \medskip
 \noindent Find all datasets satisfying:
 \begin{enumerate}[(i)]
@@ -85,7 +85,7 @@ AND (dataproduct_type = 'hea-event-list')
 
 {\em Identify all event lists that include the BL Lac, have a fully calibrated spectral axis (i.e., spectral responses have already been applied), and have at least 10,000 events.  These data will be used to prepare slides for a presentation.  Note that since calib\_status = 2 may not specify that the spectral axis is fully calibrated in physical units (HEA event lists are often considered ``calibrated'' even if the spectral axis is in pulse height units) the calibration status of the spectral axis must be checked explicitly.\/}
 
-%proposal regular Obscore table with join 
+%proposal regular Obscore table with join
 \medskip
 \noindent Find all datasets satisfying:
 \begin{enumerate}[(i)]
@@ -142,7 +142,7 @@ Then, for each row of the output, we identify the nature of the data product, an
 {\em Identify all event bundles (event lists and their associated \glspl{IRF}) that include the Cas A SNR for subsequent TeV spectromorphology studies from a VERITAS data release. Since the instrumental responses are mandatory to remove instrumental effects, the event bundles that include the  \glspl{IRF} are required.\/}
 
 %proposal regular Obscore table with product-type update for hea-event-list
-%the extra files exposed in the data link depend on the data provider strategy but the vocabularies used in the content-descriptor column must be defined in one of the 3 vocabularies. 
+%the extra files exposed in the data link depend on the data provider strategy but the vocabularies used in the content-descriptor column must be defined in one of the 3 vocabularies.
 
 \medskip
 \noindent Find all VERITAS datasets satisfying:
@@ -290,7 +290,7 @@ AND (o.ucd LIKE '%pos.eq%')
 \subsubsection{Use Case --- Identify PSF response-functions for further analysis of previously downloaded data products}
 
 {\em Identify all Chandra Source Catalog point spread functions for source detections that fall within 2 arcmin radius of  (83.84358, $-5.43639$) in the Orion star-forming complex for Chandra observation 4374.  These PSFs will be used to analyze previously downloaded catalog data products for the same field.\/ }
-%proposal 2 : all in ivoa.obscore  with 3 vocabularies but distinguish response-type by dataproduct\_subtype 
+%proposal 2 : all in ivoa.obscore  with 3 vocabularies but distinguish response-type by dataproduct\_subtype
 
 \medskip
 \noindent Find all datasets satisfying:
@@ -337,7 +337,7 @@ WHERE
 AND (obs_id = '4374')
 AND (obs_collection = 'CTAO-DR1')
 \end{verbatim}
-%can be implemented with the response table only 
+%can be implemented with the response table only
 
 \subsubsection{Use Case --- Search for all ANTARES neutrino data products for a given collection in the direction of a point source}
 
@@ -356,14 +356,14 @@ SELECT * FROM ivoa.obscore
 NATURAL JOIN ivoa.obscore_hea
 WHERE
 (CONTAINS(POINT('ICRS', 98.24, 5.81), CIRCLE('ICRS', s_ra, s_dec, s_fov)) = 1)
-AND (dataproduct_type IN ('hea-event-bundle', 'hea-event-list', 
+AND (dataproduct_type IN ('hea-event-bundle', 'hea-event-list',
 'response-function'))
 AND (obs_collection = 'ANTARES-2017-PS')
 \end{verbatim}
 
 \subsubsection{Use Case --- Retrieve the instrument response functions for a combined KM3NeT \& CTA sensitivity study for a point source.}
 
-{\em To study the combined future sensitivity for a source that is expected to emit gamma rays and neutrinos, retrieve general IRFs from both instruments to perform a sensitivity study for a source like Vela X as in \textbf{\hyperref[https://doi.org/10.1140/epjc/s10052-023-12279-z]{Eur. Phys. J. C. 84, 112 (2024)}}, considering only track-like events due to their better angular resolution.}
+{\em To study the combined future sensitivity for a source that is expected to emit gamma rays and neutrinos, retrieve general IRFs from both instruments to perform a sensitivity study for a source like Vela X as in \textbf{\href[https://doi.org/10.1140/epjc/s10052-023-12279-z]{Eur. Phys. J. C. 84, 112 (2024)}}, considering only track-like events due to their better angular resolution.}
 
 \medskip
 \noindent Find all IRF datasets satisfying:
@@ -390,7 +390,7 @@ AND (event_type = 'track')
 AND (analysis_mode = 'pointsource')
 \end{verbatim}
 
-% mireille : this query searches in KM3net data collection, but should it be also sent to a CTA archive in order to build the comparison? 
+% mireille : this query searches in KM3net data collection, but should it be also sent to a CTA archive in order to build the comparison?
 
 \subsubsection{Use Case --- Study the combined neutrino flux for the Galactic plane}
 
@@ -426,7 +426,7 @@ AND 1 = INTERSECTS(
 \medskip
 \noindent Find all neutrino datasets satisfying:
 \begin{enumerate}[(i)]
-  \item dataproduct\_type = ``response-function'', dataproduct\_subtype = ``aeff``
+  \item dataproduct\_type = ``response-function'', dataproduct\_subtype = ``aeff'',
   \item messenger\_pdgid contains ``$-16$'' or ``$+16$'',
   \item obs\_mode = ``wide-array'',
   \item analysis\_mode = ``pointsource''.
@@ -467,7 +467,7 @@ AND (dataproduct_type = 'draws')
 AND (dataproduct_subtype = 'poserr')
 AND (obs_collection = 'CSC2')
 \end{verbatim}
-% mireille: naive question: do we really need the join with the ivoa.obscore_hea table ? 
+% mireille: naive question: do we really need the join with the ivoa.obscore_hea table ?
 % constraints on event_type would require it but no criteria from ivoa.obscore_hea is used
 
 
