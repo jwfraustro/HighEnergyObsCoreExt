@@ -73,14 +73,9 @@ There are at least three ways to implement this standard for {\bf hea-event-list
 \subsubsection{From an {\bf hea-event-list} in ObsCore: DataLink to Access the Event List and Response Functions via {\em access\_url\/}}
 \label{sec:datalinkinobs}
 The {\em dataproduct\_type\/} exposed in ObsCore is {\bf hea-event-list} and the Data\-Link \blinks\ endpoint response  points to the event list and to the various {\bf response-function}s individually. This solution allows retrieval of data with explicit access to the various  components  of a ``bundle,'' which doesn't need to be packaged in that case. In addition to \glspl{IRF}, additional data products, including advanced data products, can also be linked to the {\bf hea-event-list} this way.
-% Figure~\ref{fig:obscoretodl} shows an ObsCore response where the selected record points to a \blinks\ endpoint response illustrating this method.
+
 Table~\ref{tab:datalink} provides example DataLink response content to a query for \gls{HESS} Data Level 3 Public Test Data.
-%\begin{figure}
-%
-%\includegraphics[width=1.5\textwidth, angle=90]{Obscore+datalink.png}
-% \caption{Selection of H.E.S.S. data from Aladin Desktop: In the galactic center area, an ObsTAP query has been performed and H.E.S.S. datasets are discovered.  One of the ObsCore record has been selected and points to a DataLink response, with 8 links provided in the white box. The content of this DataLink table is described in Table~\ref{tab:datalink}. }
-%\label{fig:obscoretodl}
-%\end{figure}
+
 
 \begin{landscape}
 \begin{center}
