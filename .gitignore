@@ -18,6 +18,8 @@ gitmeta.tex
 *.html
 *.zip
 *.swp
+*.glg
+*.gls
 
 # OS-specific
 .DS_Store
