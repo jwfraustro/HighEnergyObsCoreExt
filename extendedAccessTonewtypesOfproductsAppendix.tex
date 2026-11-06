@@ -2,7 +2,7 @@ In this appendix we further illustrate the possible use of an alternate table jo
 
 In order to handle the various possible cardinality relationships between {\bf response-function} and {\bf hea-event-list}  datasets, foreign keys must be defined in the {\tt ivoa.response} tables that will allow {\tt  JOIN} operations between those tables and the {\tt ivoa.obscore} table.
 
-The {\tt ivoa.response} table uses a specific {\em resp\_dataproduct\_type\/} column that is compliant with the proposed response type vocabulary (\url{https://www.ivoa.net/rdf/response-type/}) and has its own {\em resp\_obs\_publisher\_did\/} column as well, in order to distinguish which response matches  which ObsCore data set in the {\tt ivoa.response} table. 
+The {\tt ivoa.response} table uses a specific {\em resp\_dataproduct\_type\/} column that is compliant with the proposed response type vocabulary (\url{https://www.ivoa.net/rdf/response-type/}) and has its own {\em resp\_obs\_publisher\_did\/} column as well, in order to distinguish which response matches  which ObsCore data set in the {\tt ivoa.response} table.
 
 \subsection*{Preliminary Proposal for a Response Table {\tt ivoa.response}}
 
@@ -18,7 +18,7 @@ The {\tt ivoa.response} table uses a specific {\em resp\_dataproduct\_type\/} co
 {\em target\_name} & unitless & String & Astronomical object observed, if any\\\hline
 {\em facility\_name} & unitless & String & Facility name used for observed data products \\\hline
 {\em instrument\_name} & unitless & String & Instrument name used for observed data products \\\hline
-% response specific fields 
+% response specific fields
 {\em resp\_product\_type} & unitless & String &  Product type as defined in the response-type vocabulary\\\hline
 {\em resp\_publisher\_did} & unitless & String & Dataset identifier given by the publisher\\\hline
 {\em resp\_access\_url} & unitless & String & URL used to access (download) the response dataset\\\hline
@@ -50,11 +50,11 @@ The {\tt ivoa.response} table uses a specific {\em resp\_dataproduct\_type\/} co
  \item obs\_collection = ``HESS''.
 \end{enumerate}
 
-When using the response table defined in Table \ref{tab:response_table}, we can join the {\tt ivoa.obscore} table with the {\tt ivoa.response} table on one of the two keys ({\em obs\_id\/} and {\em obs\_publisher\_did\/}), for example: 
+When using the response table defined in Table \ref{tab:response_table}, we can join the {\tt ivoa.obscore} table with the {\tt ivoa.response} table on one of the two keys ({\em obs\_id\/} and {\em obs\_publisher\_did\/}), for example:
 {\small
 \begin{verbatim}
 SELECT o.obs_publisher_did, o.obs_id, s_ra, s_dec, s_fov, t_min,
-t_max, energy_min, energy_max, access_url, access_format, 
+t_max, energy_min, energy_max, access_url, access_format,
 resp_publisher_did, r.obs_publisher_did, r.obs_id, resp_access_url,
 resp_access_format, resp_energy_max, resp_energy_min
 FROM ivoa.obscore as o
@@ -79,18 +79,18 @@ AND (resp_t_min > 56000.0 and resp_t_max < 56001.5)
 \begin{verbatim}
 SELECT o.obs_publisher_did, o.obs_id, s_ra, s_dec, s_fov, t_min,
 t_max, energy_min, energy_max, access_url, access_format, scan_mode,
-resp_publisher_did, resp.obs_id, resp_access_url, resp_access_format, 
-resp_energy_max, resp_energy_min, 
-FROM ( SELECT o.obs_publisher_did, o.obs_id, scan_mode 
-     FROM ivoa.obscore 
-     NATURAL JOIN  ivoa.obscore-hea  
+resp_publisher_did, resp.obs_id, resp_access_url, resp_access_format,
+resp_energy_max, resp_energy_min
+FROM ( SELECT o.obs_publisher_did, o.obs_id, scan_mode
+     FROM ivoa.obscore
+     NATURAL JOIN  ivoa.obscore-hea
      WHERE
-     (o.obs_collection = 'IACT') 
+     (o.obs_collection = 'IACT')
      AND (scan_mode = 'raster-map')
      AND (o.obs_id = '1976')
      OR CONTAINS(POINT(s_ra, s_dec), CIRCLE, 83.6324, +22.0174, 0.083333) = 1)
      as s
-JOIN ivoa.response ON 
+JOIN ivoa.response ON
 resp.obs_id = s.obs_id
 WHERE (resp_product_type = 'edisp')
 % s is the list of observations satisfying position or obs_id and scan_mode

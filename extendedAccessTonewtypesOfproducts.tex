@@ -91,13 +91,13 @@ Table~\ref{tab:datalink} provides example DataLink response content to a query f
 \hline%\sptablerule
 {\footnotesize 20136} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz\#AEFF } & {\footnotesize \#calibration} & {\footnotesize Effective Area (HDU=AEFF)}   & {\footnotesize x-fits-gadf}  & {\footnotesize aeff} \cr
 \hline%\sptablerule
-{\footnotesize 20316} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz\#EDISP} & {\footnotesize \#calibration} & {\footnotesize Energy Dispersion\newline (HDU=EDISP)} & {\footnotesize x-fits-gadf}  & {\footnotesize edisp} \cr
+{\footnotesize 20136} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz\#EDISP} & {\footnotesize \#calibration} & {\footnotesize Energy Dispersion\newline (HDU=EDISP)} & {\footnotesize x-fits-gadf}  & {\footnotesize edisp} \cr
 \hline%\sptablerule
-{\footnotesize 20316} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz\#PSF} & {\footnotesize \#calibration} & {\footnotesize Point Spread Function\newline (HDU=PSF) } & {\footnotesize x-fits-gadf}  & {\footnotesize psf} \cr
+{\footnotesize 20136} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz\#PSF} & {\footnotesize \#calibration} & {\footnotesize Point Spread Function\newline (HDU=PSF) } & {\footnotesize x-fits-gadf}  & {\footnotesize psf} \cr
 \hline%\sptablerule
-{\footnotesize 20316} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz\#BKG} & {\footnotesize \#calibration} & {\footnotesize Background Rate (HDU=BKG) }  & {\footnotesize x-fits-gadf}  & {\footnotesize bkgrate} \cr
+{\footnotesize 20136} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz\#BKG} & {\footnotesize \#calibration} & {\footnotesize Background Rate (HDU=BKG) }  & {\footnotesize x-fits-gadf}  & {\footnotesize bkgrate} \cr
 \hline%\sptablerule
-{\footnotesize 20316} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz} & {\footnotesize \#package} & {\footnotesize Event bundle (including\newline HDU=EVENTS,GTI,AEFF,\newline EDISP,PSF,BKG)  }  & {\footnotesize x-fits-gadf}  & {\footnotesize hea-event-bundle } \cr
+{\footnotesize 20136} & {\footnotesize https://hess-dr.obspm.fr/retrieve/hess\_dl3\newline \_dr1\_obs\_id\_020136.fits.gz} & {\footnotesize \#package} & {\footnotesize Event bundle (including\newline HDU=EVENTS,GTI,AEFF,\newline EDISP,PSF,BKG)  }  & {\footnotesize x-fits-gadf}  & {\footnotesize hea-event-bundle } \cr
 \hline%\sptablerule
 
 \caption{DataLink Response Table Attached to an {\bf hea-event-list}  record in ObsCore. Inspired from Paris Observatory \gls{HESS} ObsTAP Prototype.}
@@ -117,7 +117,7 @@ To avoid preventing a direct access to the {\bf hea-event-list} while keeping th
 <PARAM arraysize="*" datatype="char" name="standardID"
    	value="ivo://ivoa.net/std/datalink#links-1.1"/>
 <PARAM arraysize="*" datatype="char" name="accessURL"
-   	value="http:/provider.org/dataservice/datalink"/>
+   	value="http://provider.org/dataservice/datalink"/>
 <GROUP name="inputParams">
 <PARAM name="ID" datatype="char" arraysize="*" value=""
    	ref="referenced_ID_FIELD"/></GROUP>
@@ -148,9 +148,9 @@ SELECT * FROM ivoa.obscore
  NATURAL JOIN ivoa.obscore_hea
  JOIN datalink.response ON
  ivoa.obscore.obs_publisher_did = datalink.response.ID
- WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
- AND (dataproduct_type = ’hea-event-list')
- AND semantics = ’#this')
+ WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 1)
+ AND (dataproduct_type = 'hea-event-list')
+ AND semantics = '#this')
 \end{verbatim}
 }
 
@@ -162,10 +162,10 @@ SELECT * FROM ivoa.obscore
  NATURAL JOIN ivoa.obscore_hea
  JOIN datalink.response ON
  ivoa.obscore.obs_publisher_did = datalink.response.ID
- WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
- AND (dataproduct_type = ’hea-event-list')
- AND (semantics = ’#calibration')
- AND (content_qualifier = ’psf')
+ WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 1)
+ AND (dataproduct_type = 'hea-event-list')
+ AND (semantics = '#calibration')
+ AND (content_qualifier = 'psf')
 \end{verbatim}
 }
 
@@ -177,10 +177,10 @@ SELECT * FROM ivoa.obscore
  NATURAL JOIN ivoa.obscore_hea
  JOIN datalink.response ON
  ivoa.obscore.obs_publisher_did = datalink.response.ID
- WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
- AND (dataproduct_type = ’hea-event-list')
+ WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 1)
+ AND (dataproduct_type = 'hea-event-list')
  AND (semantics = '#auxiliary')
- AND (content_qualifier = ’bkgimage')
+ AND (content_qualifier = 'bkgimage')
 \end{verbatim}
 }
 
@@ -192,8 +192,8 @@ SELECT * FROM ivoa.obscore
  NATURAL JOIN ivoa.obscore_hea
  JOIN datalink.response ON
  ivoa.obscore.dl_association_id = datalink.response.dl_association_id
- WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
- AND (dataproduct_type = ’hea-event-list’)
+ WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 1)
+ AND (dataproduct_type = 'hea-event-list')
  AND (semantics = '#this')
 \end{verbatim}
 }

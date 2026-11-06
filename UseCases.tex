@@ -1,5 +1,5 @@
 Here are some science cases collected from various astronomical projects for this note to represent typical data discovery scenarios in high energy physics.
-Each use case presents one strategy for building a ADQL query for an  extended TAP service, based on the original {\tt ivoa.obscore} table and on the {\tt ivoa.obscore-hea} table extension.
+Each use case presents one strategy for building a ADQL query for an  extended TAP service, based on the original {\tt ivoa.obscore} table and on the {\tt ivoa.obscore_hea} table extension.
 
 We distinguished three categories of datasets in this note:
 primary observation datasets (typically event-lists and event-bundles for \gls{HEA}), response function datasets, and advanced data product datasets.
@@ -283,7 +283,7 @@ AND (calib_level >= 2)
 AND (em_res_power > 100)
 AND (energy_min < 100000.0) AND (energy_max >= 1000.0)
 AND (o_ucd LIKE '%phys.polarization%')
-AND (o.ucd LIKE '%pos.eq%')
+AND (o_ucd LIKE '%pos.eq%')
 \end{verbatim}
 
 
@@ -491,7 +491,7 @@ SELECT * FROM ivoa.obscore
 NATURAL JOIN  ivoa.obscore_hea
 WHERE
 ((dataproduct_type = 'image')
-OR (dataproduct_subtype = 'fluxmap'))
+AND (dataproduct_subtype = 'fluxmap'))
 AND (obs_collection = 'CTAO-DR1')
 AND (instrument_name LIKE 'CTAO-N')
 AND (CAST(obs_id AS INTEGER) > 4374)
