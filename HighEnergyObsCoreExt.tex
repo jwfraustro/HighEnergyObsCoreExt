@@ -241,7 +241,7 @@ For non-pointing instruments (which may include all-sky instruments such as KM3N
 
 We propose that {\em s\_calib\_status\/} encode the calibration status of an {\bf hea-event-list} dataset's spatial axes. Where multiple spatial axes are included in a dataset ({\em e.g.\/}, physical detector pixel coordinates, virtual detector coordinates corrected for distortions, world coordinates), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated spatial axes) to define {\em s\_calib\_status\/}.
 
-Under the (reasonable) assumption that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
+Assuming that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
 
 For dataset types that do not encode sky coordinates or observations without dedicated spatial axes like non-pointing observatories, we suggest setting this value to ``NULL''.
 
@@ -249,7 +249,7 @@ For dataset types that do not encode sky coordinates or observations without ded
 
 We propose that {\em t\_calib\_status\/} encode the calibration status of an {\bf hea-event-list} dataset's time axis.  Where multiple time axes are included in a dataset ({\em e.g.\/}, instrument counter, absolute time), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated time axis) to define {\em t\_calib\_sta\-tus\/}.
 
-Under the (reasonable) assumption that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
+Assuming that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
 
 For dataset types that do not encode time coordinates, we suggest setting this value to ``NULL''.
 
@@ -257,7 +257,7 @@ For dataset types that do not encode time coordinates, we suggest setting this v
 
 We propose that {\em em\_calib\_status\/} encode the calibration status of an {\bf hea-event-list} dataset's spectral axis.  Where multiple spectral axes are included in a dataset ({\em e.g.\/}, PHA, PI, energy), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated spectral axis) to define {\em em\_calib\_status\/}.
 
-Under the (reasonable) assumption that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
+Assuming that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
 
 For dataset types that do not encode spectral coordinates, we suggest setting this value to ``NULL''.
 
